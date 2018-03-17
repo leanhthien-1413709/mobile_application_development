@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <title>Ex1</title>
+
+  <meta http-equiv="Content-type" value="text/html; charset=UTF-8" />
+  <link href="https://fonts.googleapis.com/css?family=Quicksand" rel="stylesheet">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<style type="text/css">
+
+* {
+    font-family: "Quicksand", arial, sans-serif ;
+    -webkit-font-smoothing: antialiased;
+}
+
+#description {
+	text-align: justify;
+	padding: 0 20px;
+}
+  
+.container {
+  width: 800px;
+  margin-left: auto; 
+  margin-right: auto;
+  border: 1px solid black;
+  height: 550px; 
+  
+}
+
+.error {
+  color: red;
+  text-align: center;
+}
+
+.but {
+  margin: auto;
+  display:block;
+  text-align: center;
+  
+}
+
+.res  {
+  text-align: center;
+  
+}
+
+#res {
+	font-size: 150%;
+}
+
+</style>
+<script>
+
+function cal()
+{
+	if (!$.isNumeric( $("#lat_1").val() )) {
+		$("#pos_Error_1").html("* Latitude must be a float");
+		return;
+	}
+	if (!$.isNumeric( $("#lng_1").val() )) {
+		$("#pos_Error_1").html("* Longitude must be a float");
+		return;
+	}
+	if (!$.isNumeric( $("#lat_2").val() )) {
+		$("#pos_Error_2").html("* Latitude must be a float");
+		return;
+	}
+	if (!$.isNumeric( $("#lng_2").val() )) {
+		$("#pos_Error_2").html("* Longitude must be a float");
+		return;
+	}
+	
+	
+  var data = {  'lat_1': $("#lat_1").val(),
+                'lng_1': $("#lng_1").val(),
+                'lat_2': $("#lat_2").val(),
+                'lng_2': $("#lng_2").val()
+              };
+  info = JSON.stringify(data);
+
+  $.ajax({
+
+    url: "action.php",
+
+    type: "post",
+
+    data: info,
+
+    dataType: "json",
+
+    cache: false,
+
+    success: function( data ){
+
+      var res = JSON.parse(JSON.stringify(data));
+
+      $("#res").html("The distance is:<br>" + res.res + " m" );
+      
+    },
+
+    error: function(){
+
+      $("#res").html('There was an error loading the data!');
+
+    }
+
+  });
+}
+
+function clr() {
+
+	$("#lat_1").val('');
+    $("#lng_1").val('');
+    $("#lat_2").val('');
+    $("#lng_2").val('');
+    $("#pos_Error_1").html("<br>");
+    $("#pos_Error_2").html("<br>");
+	$("#res").html('');
+}
+
+
+</script>
+</head>
+<body>
+
+
+<div class="container">
+
+<div class="but">
+
+  <h3>Ex1: Part 2</h3>
+
+  	<p id="description">* Before using the web service, please following the requirement: <br>
+  		- Program XAMPP has to be installed first (because it uses local database) as well as the server has to be started (in XAMPP Control Panel).<br>
+  		- Put two files: "Part2.html" and "action.php" in Web Root folder of XAMPP program - usually the address is: "C:\xampp\htdocs". <br>
+  	After finishing the requirement, the web can be used by accessing the address : "localhost/Part2.html" in web's browser.
+	</p>
+
+  <form id="Calculate" method="post" action="">
+
+    <strong>Source</strong><br>
+    <div class="error" id="pos_Error_1"><br></div>
+    Latitude</span>
+    
+    <input type="text" id="lat_1" value="">
+    
+    Longitude</span>
+    
+    <input type="text" id="lng_1" value="">
+    <br><br><br>
+
+    <strong>Destination</strong><br>
+    <div class="error" id="pos_Error_2"><br></div>
+    Latitude</span>
+    
+    <input type="text"  id="lat_2" value="">
+    
+    Longitude</span>
+    
+    <input type="text"  id="lng_2" value="">
+    <br><br><br>
+
+    <button type="button" onclick="cal()">Calculate</button>
+    <button type="button" onclick="clr()">Clear</button><br><br>
+
+  </form>
+
+  <div id="res"></div>
+
+</div>
+
+
+
+
+
+
+
+</div>
+
+</body>
+</html>
