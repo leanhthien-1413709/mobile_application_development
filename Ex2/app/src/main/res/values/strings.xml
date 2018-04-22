@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">Currency_Converter</string>
+    <string name="app_title">CURRENCY CONVERTER</string>
+    <string name="country_prompt">Choose a country</string>
+
+
+    //Button
+    <string name="convert">Convert</string>
+    <string name="reverse">Reverse</string>
+    <string name="clear">Clear</string>
+    <string name="input">Enter Amount</string>
+    <string name="output">Result</string>
+
+
+    //Supported Countries
+    <string-array name="country_arrays">
+        <item>USD - US Dollar</item>
+        <item>VND - Vietnamese Dong</item>
+        <item>EUR - Euro</item>
+        <item>GBP - British Pound</item>
+    </string-array>
+
+    //Description
+    <string name="app_description">All the information was collected from Google site and developer
+        is not responsible for any problem. All data are up to date till the day 22/04/2018.</string>
+
+
+</resources>
